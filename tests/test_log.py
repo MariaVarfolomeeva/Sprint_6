@@ -1,7 +1,10 @@
+import allure
 from pages.main_page import MainPage
 from pages.order_page import OrderPage
 
-
+@allure.feature("Логотипы")
+@allure.story("Переходы по логотипам")
+@allure.title("Тест: переход на главную страницу 'Самоката' при нажатии на логотип")
 def test_logo_scooter_redirects_to_home(driver):
     """Тест: переход на главную страницу 'Самоката' при нажатии на логотип"""
     main_page = MainPage(driver)
@@ -13,7 +16,9 @@ def test_logo_scooter_redirects_to_home(driver):
 
     assert main_page.is_open(), "После клика на логотип 'Самоката' не произошло возвращения на главную!"
 
-
+@allure.feature("Логотипы")
+@allure.story("Переходы по логотипам")
+@allure.title("Тест: проверка перехода в 'Яндекс.Дзен' через логотип")
 def test_logo_yandex_redirects_to_dzen(driver):
     """Тест: проверка перехода в 'Яндекс.Дзен' через логотип"""
     main_page = MainPage(driver)
