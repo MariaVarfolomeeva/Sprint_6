@@ -3,8 +3,10 @@ __pycache__/
 .vscode/
 venv/
 /.pytest_cache
-../Sprint_5_new/test.py/
 .idea/
 *.log
 node_modules/
 .DS_Store
+C:\Users\Иван\Desktop\Sprint_6\.pytest_cache
+C:\Users\Иван\Desktop\Sprint_6\venv
+C:\Users\Иван\Desktop\Sprint_6\geckodriver.log
