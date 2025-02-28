@@ -2,18 +2,16 @@ import pytest
 import allure
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
-from selenium.webdriver.firefox.service import Service
-from webdriver.firefox import GeckoDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
 
 
 @pytest.fixture(scope="function")
 def driver():
     """Фикстура для инициализации WebDriver для Firefox"""
-
     options = Options()
     options.headless = True
 
-    driver = webdriver.Firefox(service=Service(GeckoDriverManager().install()), options=options)
+    driver = webdriver.Firefox(executable_path=GeckoDriverManager().install(), options=options)
 
     yield driver
 
@@ -23,10 +21,6 @@ def driver():
 @pytest.fixture(scope="function", autouse=True)
 def add_allure_environment():
     """Фикстура для добавления данных в Allure отчет"""
-    allure.environment(
-        **{
-            "Browser": "Firefox",
-            "Version": "Latest",
-            "Test Framework": "pytest",
-        }
-    )
+    allure.dynamic.label("browser", "Firefox")
+    allure.dynamic.label("version", "Latest")
+    allure.dynamic.label("test_framework", "pytest")

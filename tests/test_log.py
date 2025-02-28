@@ -2,6 +2,7 @@ import allure
 from pages.main_page import MainPage
 from pages.order_page import OrderPage
 
+
 @allure.feature("Логотипы")
 @allure.story("Переходы по логотипам")
 @allure.title("Тест: переход на главную страницу 'Самоката' при нажатии на логотип")
@@ -15,6 +16,7 @@ def test_logo_scooter_redirects_to_home(driver):
     order_page.click_scooter_logo()
 
     assert main_page.is_open(), "После клика на логотип 'Самоката' не произошло возвращения на главную!"
+
 
 @allure.feature("Логотипы")
 @allure.story("Переходы по логотипам")

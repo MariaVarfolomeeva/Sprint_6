@@ -2,6 +2,7 @@ import allure
 import pytest
 from pages.main_page import MainPage
 
+
 @pytest.mark.parametrize("question_index", range(8))
 @allure.feature("FAQ")
 @allure.story("Отображение ответов на вопросы")

@@ -46,3 +46,6 @@ class MainPage:
         WebDriverWait(self.driver, 5).until(EC.number_of_windows_to_be(2))
         self.driver.switch_to.window(self.driver.window_handles[1])
         return self.driver.current_url
+
+    def is_open(self):
+        pass
