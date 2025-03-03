@@ -1,5 +1,7 @@
 import pytest
 import allure
+from selenium.webdriver.firefox.service import Service
+from selenium.webdriver.common.by import By
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 from webdriver_manager.firefox import GeckoDriverManager
@@ -11,7 +13,11 @@ def driver():
     options = Options()
     options.headless = True
 
-    driver = webdriver.Firefox(executable_path=GeckoDriverManager().install(), options=options)
+    service = Service(GeckoDriverManager().install())
+
+    driver = webdriver.Firefox(service=service, options=options)
+    driver.set_page_load_timeout(30)
+    driver.set_script_timeout(30)
 
     yield driver
 
