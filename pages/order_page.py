@@ -1,7 +1,9 @@
 from selenium.webdriver.common.by import By
+from pages.base_page import BasePage
+import allure
 
 
-class OrderPage:
+class OrderPage(BasePage):
     FIRST_NAME_INPUT = (By.XPATH, '//input[@placeholder="* Имя"]')
     LAST_NAME_INPUT = (By.XPATH, '//input[@placeholder="* Фамилия"]')
     ADDRESS_INPUT = (By.XPATH, '//input[@placeholder="* Адрес: куда привезти заказ"]')
@@ -17,36 +19,36 @@ class OrderPage:
     SCOOTER_LOGO = (By.XPATH, '//a[@href="/"]')
 
     def __init__(self, driver):
-        self.driver = driver
+        super().__init__(driver)
 
+    @allure.step("Заполнение формы заказа")
     def fill_order_form(self, first_name, last_name, address, phone):
         """Заполняет форму заказа."""
-        self.driver.find_element(*self.FIRST_NAME_INPUT).send_keys(first_name)
-        self.driver.find_element(*self.LAST_NAME_INPUT).send_keys(last_name)
-        self.driver.find_element(*self.ADDRESS_INPUT).send_keys(address)
-        self.driver.find_element(*self.PHONE_INPUT).send_keys(phone)
+        self.send_keys(self.FIRST_NAME_INPUT, first_name)
+        self.send_keys(self.LAST_NAME_INPUT, last_name)
+        self.send_keys(self.ADDRESS_INPUT, address)
+        self.send_keys(self.PHONE_INPUT, phone)
 
-        self.driver.find_element(*self.DELIVERY_DATE_INPUT).send_keys("2025-02-26")
-        self.driver.find_element(*self.RENTAL_PERIOD_SELECT).click()
-        self.driver.find_element(*self.COLOR_SELECT).click()
+        self.send_keys(self.DELIVERY_DATE_INPUT, "2025-02-26")
+        self.click(self.RENTAL_PERIOD_SELECT)
+        self.click(self.COLOR_SELECT)
 
+    @allure.step("Отправка формы заказа")
     def submit_order(self):
         """Отправляет форму."""
-        self.driver.find_element(*self.NEXT_BUTTON).click()
+        self.click(self.NEXT_BUTTON)
 
+    @allure.step("Проверка успешного сообщения о заказе")
     def is_success_message_displayed(self):
         """Проверяет, что сообщение об успешном заказе отображается."""
-        try:
-            success_message = self.driver.find_element(*self.SUCCESS_MESSAGE)
-            return success_message.is_displayed()
-        except:
-            return False
+        return self.is_element_visible(self.SUCCESS_MESSAGE)
 
+    @allure.step("Клик на логотип для возврата на главную")
     def click_scooter_logo(self):
         """Кликает на логотип Самоката для возврата на главную страницу."""
-        scooter_logo = self.driver.find_element(*self.SCOOTER_LOGO)
-        scooter_logo.click()
+        self.click(self.SCOOTER_LOGO)
 
+    @allure.step("Проверка, что страница заказа открыта")
     def is_open(self):
         """Проверяет, что страница Самоката открыта."""
         return "scooter" in self.driver.current_url
