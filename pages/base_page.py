@@ -31,3 +31,13 @@ class BasePage:
 
     def get_url(self):
         return self.driver.current_url
+
+    def is_element_visible(self, locator):
+        """Проверяет, что элемент видим на странице."""
+        try:
+            element = WebDriverWait(self.driver, 10).until(
+                EC.visibility_of_element_located(locator)
+            )
+            return True if element else False
+        except:
+            return False
