@@ -1,6 +1,6 @@
+import allure
 from selenium.webdriver.common.by import By
 from pages.base_page import BasePage
-import allure
 
 
 class OrderPage(BasePage):
@@ -18,25 +18,21 @@ class OrderPage(BasePage):
 
     SCOOTER_LOGO = (By.XPATH, '//a[@href="/"]')
 
-    def __init__(self, driver):
-        super().__init__(driver)
-
-    @allure.step("Заполнение формы заказа")
-    def fill_order_form(self, first_name, last_name, address, phone):
+    @allure.step("Заполнение формы заказа: {first_name} {last_name}, {address}, {phone}")
+    def fill_order_form(self, first_name, last_name, address, phone, delivery_date="2025-02-26"):
         """Заполняет форму заказа."""
-        self.send_keys(self.FIRST_NAME_INPUT, first_name)
-        self.send_keys(self.LAST_NAME_INPUT, last_name)
-        self.send_keys(self.ADDRESS_INPUT, address)
-        self.send_keys(self.PHONE_INPUT, phone)
-
-        self.send_keys(self.DELIVERY_DATE_INPUT, "2025-02-26")
-        self.click(self.RENTAL_PERIOD_SELECT)
-        self.click(self.COLOR_SELECT)
+        self.send_keys(*self.FIRST_NAME_INPUT, first_name)
+        self.send_keys(*self.LAST_NAME_INPUT, last_name)
+        self.send_keys(*self.ADDRESS_INPUT, address)
+        self.send_keys(*self.PHONE_INPUT, phone)
+        self.send_keys(*self.DELIVERY_DATE_INPUT, delivery_date)
+        self.click(*self.RENTAL_PERIOD_SELECT)
+        self.click(*self.COLOR_SELECT)
 
     @allure.step("Отправка формы заказа")
     def submit_order(self):
-        """Отправляет форму."""
-        self.click(self.NEXT_BUTTON)
+        """Отправляет форму заказа."""
+        self.click(*self.NEXT_BUTTON)
 
     @allure.step("Проверка успешного сообщения о заказе")
     def is_success_message_displayed(self):
@@ -46,9 +42,10 @@ class OrderPage(BasePage):
     @allure.step("Клик на логотип для возврата на главную")
     def click_scooter_logo(self):
         """Кликает на логотип Самоката для возврата на главную страницу."""
-        self.click(self.SCOOTER_LOGO)
+        self.click(*self.SCOOTER_LOGO)
 
     @allure.step("Проверка, что страница заказа открыта")
     def is_open(self):
         """Проверяет, что страница Самоката открыта."""
-        return "scooter" in self.driver.current_url
+        return "scooter" in self.get_url()
+
