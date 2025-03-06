@@ -8,7 +8,6 @@ class TestFAQ:
     @allure.feature("FAQ")
     @allure.story("Отображение ответов на вопросы")
     @allure.title("Тест: при клике на вопрос в разделе 'Вопросы о важном' отображается соответствующий ответ")
-    @allure.step("Открытие главной страницы и клик на вопрос в разделе 'Вопросы о важном'")
     def test_faq_answers_are_visible(self, driver, question_index):
         """Тест: при клике на вопрос в разделе 'Вопросы о важном' отображается соответствующий ответ"""
         main_page = MainPage(driver)
