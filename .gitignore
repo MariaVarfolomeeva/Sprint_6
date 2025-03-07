@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.vscode/
+venv/
+/.pytest_cache
+.idea/
+*.log
+node_modules/
+.DS_Store
+C:\Users\Иван\Desktop\Sprint_6\.pytest_cache
+C:\Users\Иван\Desktop\Sprint_6\venv
+C:\Users\Иван\Desktop\Sprint_6\geckodriver.log
